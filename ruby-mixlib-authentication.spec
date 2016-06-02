@@ -6,7 +6,7 @@
 Summary:	Simple per-request authentication
 Name:		ruby-%{pkgname}
 Version:	1.4.0
-Release:	0.2
+Release:	1
 License:	Apache v2.0
 Group:		Development/Languages
 Source0:	http://gems.rubyforge.org/gems/%{pkgname}-%{version}.gem
