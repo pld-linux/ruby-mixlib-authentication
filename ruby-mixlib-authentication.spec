@@ -6,11 +6,12 @@
 Summary:	Simple per-request authentication
 Name:		ruby-%{pkgname}
 Version:	1.4.0
-Release:	0.1
+Release:	0.2
 License:	Apache v2.0
 Group:		Development/Languages
 Source0:	http://gems.rubyforge.org/gems/%{pkgname}-%{version}.gem
 # Source0-md5:	10f53cce9daa6d60b414bb2cb77557fa
+Patch0:		deps.patch
 URL:		http://github.com/opscode/mixlib-authentication
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.656
@@ -35,10 +36,10 @@ This package contains documentation for %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-# write .gemspec
-%__gem_helper spec
+%__gem_helper spec-dump %{pkgname}.gemspec
 
 %check
 %if %{with tests}
