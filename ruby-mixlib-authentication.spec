@@ -1,16 +1,23 @@
+#
+# Conditional build:
+%bcond_with	tests		# build without tests
+
 %define		pkgname	mixlib-authentication
 Summary:	Simple per-request authentication
 Name:		ruby-%{pkgname}
-Version:	1.3.0
-Release:	5
+Version:	1.4.0
+Release:	0.1
 License:	Apache v2.0
 Group:		Development/Languages
 Source0:	http://gems.rubyforge.org/gems/%{pkgname}-%{version}.gem
-# Source0-md5:	c2e40b5bf1d72d03ea91991c37c2a65a
+# Source0-md5:	10f53cce9daa6d60b414bb2cb77557fa
 URL:		http://github.com/opscode/mixlib-authentication
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.656
-Requires:	ruby-mixlib-log
+%if %{with tests}
+BuildRequires:	ruby-rake < 11
+BuildRequires:	ruby-rake >= 10.4
+%endif
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
