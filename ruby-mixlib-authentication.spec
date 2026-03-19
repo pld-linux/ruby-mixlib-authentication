@@ -5,17 +5,16 @@
 %define		pkgname	mixlib-authentication
 Summary:	Simple per-request authentication
 Name:		ruby-%{pkgname}
-Version:	2.1.1
-Release:	2
+Version:	3.0.10
+Release:	1
 License:	Apache v2.0
 Group:		Development/Languages
-Source0:	http://gems.rubyforge.org/gems/%{pkgname}-%{version}.gem
-# Source0-md5:	b9fae61aaac84f71aad68791c454ac44
+Source0:	https://rubygems.org/downloads/%{pkgname}-%{version}.gem
+# Source0-md5:	2b6d753a64e6c13d75fc6e87727d27c9
 URL:		http://github.com/opscode/mixlib-authentication
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.656
 %if %{with tests}
-BuildRequires:	ruby-rake < 11
 BuildRequires:	ruby-rake >= 10.4
 %endif
 BuildArch:	noarch
@@ -34,15 +33,15 @@ Requires:	%{name} = %{version}-%{release}
 This package contains documentation for %{name}.
 
 %prep
-%setup -q
+%setup -q -n %{pkgname}-%{version}
 
 %build
-%__gem_helper spec-dump %{pkgname}.gemspec
+%__gem_helper spec
 
 %check
 %if %{with tests}
 # need RSpec2
-rspec -Ilib spec/mixlib/authentication/
+%{__ruby} -S rspec -Ilib spec/mixlib/authentication/
 %endif
 
 %install
@@ -56,7 +55,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README.md NOTICE
+%doc LICENSE
 %{ruby_vendorlibdir}/mixlib/authentication.rb
 %{ruby_vendorlibdir}/mixlib/authentication
 %{ruby_specdir}/%{pkgname}-%{version}.gemspec
